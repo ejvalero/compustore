@@ -1,5 +1,4 @@
 library(shiny)
-library(ggplot2)
 
 port <- Sys.getenv('PORT')
 
