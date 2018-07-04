@@ -10,7 +10,7 @@
 library(shiny)
 
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
+shinyUI(fluidPage(theme = "flatly",
   
   # Application title
   titlePanel("Old Faithful Ice Data. Just exampple of my next app"),
