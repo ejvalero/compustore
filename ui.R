@@ -13,7 +13,7 @@ library(shiny)
 shinyUI(fluidPage(
   
   # Application title
-  titlePanel("Old Faithful Ice Data"),
+  titlePanel("Old Faithful Ice Data. Just exampple of my next app"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
