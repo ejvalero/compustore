@@ -10,24 +10,14 @@
 library(shiny)
 
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(theme = "flatly",
-  
-  # Application title
-  titlePanel("Old Faithful Ice Data. Just exampple of my next app"),
-  
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
+shinyUI(dashboardPage(
+    dashboardHeader(),
+    dashboardSidebar(
+        # Custom CSS to hide the default logout panel
+        tags$head(tags$style(HTML('.shiny-server-account { display: none; }'))),
+        
+        # The dynamically-generated user panel
+        uiOutput("userpanel")
     ),
-    
-    # Show a plot of the generated distribution
-    mainPanel(
-       plotOutput("distPlot")
-    )
-  )
+    dashboardBody()
 ))
