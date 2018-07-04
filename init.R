@@ -1,4 +1,2 @@
-library("ggplot2")
-library("shinydashboard")
+install.packages("shinythemes")
 library("shinythemes")
-library("shinyjs")
