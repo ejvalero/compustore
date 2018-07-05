@@ -1,6 +1,6 @@
 install.packages("shinydashboard")
-install.packages("shinythemes")
-library("shinythemes")
+install.packages("jsonlite")
+library("jsonlite")
 
 ## Steps to push repo to git-hub
 

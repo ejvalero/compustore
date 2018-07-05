@@ -10,15 +10,59 @@
 library(shiny)
 library(shinydashboard)
 
+os <- c("Windows 7", "Windows 8", "Windows 10", "Linux", "MacOS")
+pctype <- list(`Portátiles` = c("Laptop", "Convertible"), 
+               `Sobremsa` = c("Torre", "Todo en uno"))
+
 # Define UI for application that draws a histogram
-shinyUI(dashboardPage(
-    dashboardHeader(),
-    dashboardSidebar(
-        # Custom CSS to hide the default logout panel
-        tags$head(tags$style(HTML('.shiny-server-account { display: none; }'))),
+shinyUI(fluidPage(
+    
+    # App title ----
+    titlePanel("Hello Shiny!"),
+    
+    fluidRow(
         
-        # The dynamically-generated user panel
-        uiOutput("userpanel")
+        column( 4,
+            wellPanel(
+                selectizeInput(
+                    'pctype', '', choices = pctype,
+                    options = list(
+                        placeholder = 'El tipo de ordenador que buscas ...',
+                        onInitialize = I('function() { this.setValue(""); }')
+                    )
+                )
+            )
+        ),
+
+        column( 4,
+                wellPanel(
+                    selectizeInput(
+                        'basics', '', choices = os,
+                        options = list(
+                            placeholder = 'Tu sistema operativo es ...',
+                            onInitialize = I('function() { this.setValue(""); }')
+                        )
+                    )
+                )
+        ),
+        
+        column( 4,
+                wellPanel(
+                    selectizeInput(
+                        'maxprice', '', choices = os,
+                        options = list(
+                            placeholder = 'El precio máximo que pagarías ...',
+                            onInitialize = I('function() { this.setValue(""); }')
+                        )
+                    )
+                )
+        )
     ),
-    dashboardBody()
+    
+    mainPanel(
+        textOutput("foundMachine")        
+    )
+
+    
+    # Sidebar layout with input and output definitions ----
 ))

@@ -9,18 +9,38 @@
 
 library(shiny)
 
+market <- "https://www.amazon.es/gp/search/ref=sr_pg_"
+
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
-   
-  output$distPlot <- renderPlot({
+shinyServer(function(input, output, session) {
     
-    # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2] 
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    scraper <- reactive({
+        spage <- "2"
+
+        if(all(input$pctype != "" & input$basics != "")){
+            pctype <- switch(input$pctype, 
+                             "Laptop" = "portatil", "Convertible" = "convertible")
+            keyspc <- paste("ordenador", pctype, input$basics, sep = "+")
+            baseos <- tolower(gsub(" ", "+", input$basics))
+            keywds <- paste("ordenador", pctype, baseos, sep = "+")
+            
+            url <- paste(market, spage, "?rh=i%3Aaps%2Ck%3A", keywds, "&page=", spage,
+                         "&keywords=", keywds, "&ie=UTF8", sep = "")            
+        }
+
+        # products <- read_html(url[[2]][1]) %>%
+        #     html_nodes(".s-result-item")
+        # 
+        # prod_asins <- products %>% html_attr("data-asin") 
+        #  
+        # compuTable <- data.frame(
+        #     asin = prod_asins
+        # )
+        
+    })
     
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    
-  })
+    output$foundMachine <- renderText({
+        if(!is.null(scraper())) scraper()
+    })
   
 })
